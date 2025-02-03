@@ -1,23 +1,47 @@
+"use client";
+
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ROUTES } from "@/shared/constants/routes";
+import { motion } from "framer-motion";
 
 export default function NotFound() {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-green-50">
-      <div className="text-center">
-        <h1 className="mb-4 text-9xl font-bold text-green-600">404</h1>
-        <h2 className="mb-8 text-4xl font-bold text-green-800">
-          Page Not Found
+    <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{
+          opacity: 1,
+          backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+        }}
+        transition={{
+          duration: 6,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+        className="absolute inset-0 bg-gradient-to-br from-green-100 via-green-200 to-green-300 bg-[length:200%_200%] z-[-1]"
+      />
+      <motion.div
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+        className="text-center"
+      >
+        <h1 className="mb-4 text-9xl font-extrabold text-primary">404</h1>
+        <h2 className="mb-4 text-4xl font-bold ">
+          Oops! This page cannot be found.
         </h2>
-        <p className="mb-8 text-lg text-green-700">
-          Oops! The page you&apos;re looking for doesn&apos;t exist or has been
-          moved.
+        <p className="mb-6 text-lg text-muted-foreground">
+          You seem to be lost in the forest... but don&apos;t panic!
         </p>
-        <Button asChild className="bg-green-600 hover:bg-green-700 text-white">
+
+        <Button
+          asChild
+          className="bg-primary hover:bg-primary/80 text-primary-foreground"
+        >
           <Link href={ROUTES.HOMEPAGE}>Go back home</Link>
         </Button>
-      </div>
+      </motion.div>
     </div>
   );
 }
