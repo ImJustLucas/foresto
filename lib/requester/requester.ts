@@ -1,7 +1,4 @@
-import {
-  APIResponse,
-  APIResponsePromise,
-} from "@/shared/types/api/api-response";
+import { APIResponse, APIResponsePromise } from "@/shared/types/api";
 import request, { ApiRequestConfig } from "./request";
 
 // const createAuthHeaders = (jwtToken: string): HeadersInit => ({

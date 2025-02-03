@@ -1,4 +1,4 @@
-import { APIResponse } from "@/shared/types/api/api-response";
+import { APIResponse } from "@/shared/types/api";
 
 type FetchOptions = Omit<RequestInit, "body"> & {
   data?: unknown;
