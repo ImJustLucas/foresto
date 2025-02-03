@@ -4,4 +4,12 @@ export interface User {
   lastName: string;
   email: string;
   password: string;
+  dateOfBirth: Date;
+  description: string;
+  role: UserRole;
+}
+
+enum UserRole {
+  USER = "user",
+  ADMIN = "admin",
 }
