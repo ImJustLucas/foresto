@@ -13,16 +13,19 @@ import { fr } from "date-fns/locale";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { toast } from "sonner";
 import { requester } from "@/lib/requester";
-import { User } from "@/shared/types/users";
+import { Profile, User } from "@/shared/types/users";
 
 export const UpdateUserForm: React.FC<{
   userId: string;
-}> = ({ userId }) => {
+  profile: Profile;
+}> = ({ userId, profile }) => {
   const [user, setUser] = useState({
-    firstName: "",
-    lastName: "",
-    dateOfBirth: undefined as Date | undefined,
-    description: "",
+    firstName: profile.first_name,
+    lastName: profile.last_name,
+    dateOfBirth: profile.date_of_birth
+      ? new Date(profile.date_of_birth)
+      : undefined,
+    description: profile.description,
   });
 
   const handleChange = (field: string, value: string | Date | undefined) => {

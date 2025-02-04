@@ -13,3 +13,13 @@ export enum UserRole {
   USER = "user",
   ADMIN = "admin",
 }
+
+export interface Profile {
+  created_at: string;
+  date_of_birth: string | null;
+  description: string;
+  first_name: string;
+  id: string;
+  last_name: "";
+  role: UserRole;
+}

@@ -25,3 +25,36 @@ export async function PUT(
 
   return NextResponse.json({ success: true, data });
 }
+
+export async function DELETE() {
+  console.log("Users - @DELETE ONE");
+  const supabase = await createClient();
+
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  if (!session) {
+    return NextResponse.json({ error: "Non authentifié" }, { status: 401 });
+  }
+
+  const response = await supabase
+    .from("auth.users")
+    .delete()
+    .eq("id", session.user.id);
+
+  if (response.error) {
+    console.error(response.error);
+    return NextResponse.json(
+      { success: false, message: response.error.message },
+      { status: 500 }
+    );
+  }
+
+  return NextResponse.json(
+    { success: true },
+    {
+      status: 204,
+    }
+  );
+}
