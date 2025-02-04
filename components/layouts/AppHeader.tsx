@@ -22,17 +22,21 @@ export const AppHeader: React.FC = async () => {
   const isUserNotAuthenticated = error || !data?.user;
 
   return (
-    <header className="p-4 flex w-100 justify-between">
-      <Link href={ROUTES.HOMEPAGE} className="flex items-center gap-2">
+    <header className="p-4 flex w-100 mx-auto max-w-[1280px] justify-between items-center">
+      <Link href={ROUTES.HOMEPAGE} className="flex items-center gap-2 flex-1">
         <div className="flex items-center aspect-square size-8 space-x-2 text-white bg-green-500 rounded-full p-2">
           <GalleryVerticalEnd className="size-4" />
         </div>
         <TypographyH4>BANKO</TypographyH4>
       </Link>
 
-      <div></div>
+      <div className=" flex-2">
+        <Button asChild variant={"ghost"} className="font-semibold">
+          <Link href={ROUTES.ACTIVITIES}>Book a moment</Link>
+        </Button>
+      </div>
 
-      <div className="flex gap-1">
+      <div className="flex gap-1 justify-end flex-1">
         {isUserNotAuthenticated ? (
           <>
             <Button asChild>
