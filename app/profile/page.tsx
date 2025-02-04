@@ -1,3 +1,6 @@
+import { UpdateUserForm } from "@/components/forms/update-user.form";
+import { TypographyP } from "@/components/typography";
+import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/supabase-server-side";
 import { redirect } from "next/navigation";
 
@@ -11,5 +14,15 @@ export default async function ProfilePage() {
 
   console.log(data);
 
-  return <p>Hello {data.user.email}</p>;
+  return (
+    <div className="flex w-100 items-center flex-col gap-4 justify-center">
+      <UpdateUserForm userId={data.user.id} />
+      <div className="min-w-100">
+        <TypographyP bold>DANGER ZONE</TypographyP>
+        <Button variant="destructive" className="w-full">
+          Delete my account
+        </Button>
+      </div>
+    </div>
+  );
 }

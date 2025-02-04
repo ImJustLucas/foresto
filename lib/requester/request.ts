@@ -26,6 +26,7 @@ const request = async <TData>(
     `${process.env.NEXT_PUBLIC_API_PATH}${url}`,
     config
   );
+
   const data: APIResponse<TData> = await response.json();
 
   if (!data.success) {

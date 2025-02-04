@@ -1,3 +1,5 @@
+"use server";
+
 import { createClient } from "@/lib/supabase/supabase-server-side";
 import { User } from "@/shared/types/users";
 

@@ -52,3 +52,14 @@ export const TypographyP: React.FC<TypographyType> = ({
     </p>
   );
 };
+
+export const TypographyMuted: React.FC<TypographyType> = ({
+  children,
+  bold = true,
+}) => {
+  return (
+    <p className={cn("leading-7 text-muted-foreground", bold && "font-medium")}>
+      {children}
+    </p>
+  );
+};
