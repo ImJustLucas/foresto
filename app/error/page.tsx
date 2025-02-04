@@ -33,7 +33,7 @@ export default function ErrorPage() {
           An unexpected error has occurred.
         </h2>
         <p className="mb-6 text-lg text-muted-foreground">
-          We can't find the page you're looking for.
+          We can&apos;t find the page you&apos;re looking for.
         </p>
 
         <Button
