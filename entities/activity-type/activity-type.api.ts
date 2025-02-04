@@ -16,7 +16,7 @@ export const ActivityTypeApi = {
   getOneById: async (id: string) =>
     await requester().get<ActivityType>(`${BASE_URL}/${id}`),
 
-  update: async (id: string, data: Partial<ActivityType>) =>
+  updateOneById: async (id: string, data: Partial<ActivityType>) =>
     await requester().put<ActivityType>(`${BASE_URL}/${id}`, {
       data,
     }),
