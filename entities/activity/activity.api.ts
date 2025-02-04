@@ -1,0 +1,20 @@
+import { requester } from "@/lib/requester";
+import { Activity } from "@/shared/types/activity";
+
+const BASE_URL = "/api/activities";
+
+export const ActivityApi = {
+  create: async (activity: Omit<Activity, "id">) =>
+    await requester().post<Activity>(BASE_URL, { data: activity }),
+
+  getAll: async () => await requester().get<Activity[]>(BASE_URL),
+
+  getOneById: async (id: string) =>
+    await requester().get<Activity>(`${BASE_URL}/${id}`),
+
+  update: async (id: string, data: Partial<Activity>) =>
+    await requester().put<Activity>(`${BASE_URL}/${id}`, { data }),
+
+  delete: async (id: string) =>
+    await requester().delete<Activity>(`${BASE_URL}/${id}`),
+};

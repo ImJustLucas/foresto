@@ -2,6 +2,7 @@
 
 import { createClient } from "@/lib/supabase/supabase-server-side";
 import { User } from "@/shared/types/users";
+
 export const createUser = async (user: Omit<User, "id">) => {
   const { data, error } = await (await createClient())
     .from("profiles")
