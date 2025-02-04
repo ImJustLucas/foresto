@@ -14,13 +14,26 @@ import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { ROUTES } from "@/shared/constants/routes";
 import { loginAction } from "@/entities/authentication/actions/login.action";
-import { useFormStatus } from "react-dom";
+import { useActionState, useEffect } from "react";
+import { toast } from "sonner";
+
+const initialState = {
+  message: "",
+  error: false,
+};
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<"div">) {
-  const { pending } = useFormStatus();
+  const [state, formAction, pending] = useActionState(
+    loginAction,
+    initialState
+  );
+
+  useEffect(() => {
+    if (state.error) toast.error(state.message.toString());
+  }, [state]);
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
@@ -32,7 +45,7 @@ export function LoginForm({
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form action={loginAction}>
+          <form action={formAction}>
             <div className="flex flex-col gap-6">
               <div className="grid gap-2">
                 <Label htmlFor="email">Email</Label>
@@ -46,21 +59,14 @@ export function LoginForm({
               </div>
               <div className="grid gap-2">
                 <div className="flex items-center">
-                  <Label htmlFor="password">Password</Label>
-                  <a
-                    href="#"
-                    className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
-                  >
-                    Forgot your password?
-                  </a>
+                  <Label color="red" htmlFor="password">
+                    Password
+                  </Label>
                 </div>
-                <Input id="password" type="password" required />
+                <Input id="password" type="password" name="password" required />
               </div>
               <Button type="submit" className="w-full" disabled={pending}>
                 Login
-              </Button>
-              <Button variant="outline" className="w-full" type="submit">
-                Login with Google
               </Button>
             </div>
             <div className="mt-4 text-center text-sm">

@@ -5,7 +5,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { ROUTES } from "@/shared/constants/routes";
 
-export const loginAction = async () => {
+export const logoutAction = async () => {
   const supabase = await createClient();
 
   const { error } = await supabase.auth.signOut();

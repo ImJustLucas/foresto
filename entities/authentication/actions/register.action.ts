@@ -35,6 +35,6 @@ export const registerAction = async (formData: FormData) => {
   const userId = authData.user?.id;
   if (!userId) throw new Error("User not created.");
 
-  revalidatePath(ROUTES.HOMEPAGE, "layout");
-  redirect(ROUTES.HOMEPAGE);
+  revalidatePath(ROUTES.ACCOUNT, "layout");
+  redirect(ROUTES.ACCOUNT);
 };

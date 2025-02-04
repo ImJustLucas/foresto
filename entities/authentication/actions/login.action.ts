@@ -6,7 +6,8 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { ROUTES } from "@/shared/constants/routes";
 
-export const loginAction = async (formData: FormData) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const loginAction = async (prevState: any, formData: FormData) => {
   const supabase = await createClient();
 
   const safeParse = AuthenticationContracts.loginContract.safeParse({
@@ -14,14 +15,17 @@ export const loginAction = async (formData: FormData) => {
     password: formData.get("password"),
   });
 
-  if (safeParse.error) return;
-
+  if (!safeParse.success) {
+    return { message: safeParse.error.message, error: true };
+  }
   const { error } = await supabase.auth.signInWithPassword(safeParse.data);
-
   if (error) {
-    redirect(ROUTES.ERROR);
+    console.log("wsh", error);
+    return { message: error, error: true };
   }
 
-  revalidatePath(ROUTES.HOMEPAGE, "layout");
-  redirect(ROUTES.HOMEPAGE);
+  console.log("LOGGED IN");
+
+  revalidatePath(ROUTES.ACCOUNT, "layout");
+  redirect(ROUTES.ACCOUNT);
 };
