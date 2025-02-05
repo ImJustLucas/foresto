@@ -1,10 +1,10 @@
 import { requester } from "@/lib/requester";
-import { Activity } from "@/shared/types/activity";
+import { Activity, ActivityCreateDto } from "@/shared/types/activity";
 
 const BASE_URL = "/activities";
 
 export const ActivityApi = {
-  create: async (activity: Omit<Activity, "id">) =>
+  create: async (activity: ActivityCreateDto) =>
     await requester().post<Activity>(BASE_URL, { data: activity }),
 
   getAll: async () => await requester().get<Activity[]>(BASE_URL),
