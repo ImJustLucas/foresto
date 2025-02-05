@@ -8,6 +8,7 @@ export async function POST(request: Request) {
   const { data, error } = await supabase.from("activities").insert([body]);
 
   if (error) {
+    console.error(error);
     return NextResponse.json(
       { success: false, message: error.message },
       { status: 500 }
@@ -20,7 +21,13 @@ export async function POST(request: Request) {
 export async function GET() {
   const supabase = await createClient();
 
-  const { data, error } = await supabase.from("activities").select("*");
+  const { data, error } = await supabase.from("activities").select(`
+    *,
+    activity_types:type_id (
+      id,
+      name
+    )
+  `);
 
   if (error) {
     return NextResponse.json(
