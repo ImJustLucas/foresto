@@ -4,22 +4,27 @@ import {
   UsersIcon,
   TreesIcon as TreeIcon,
   InfoIcon,
+  Edit,
 } from "lucide-react";
 import { SpotlightCard } from "./react-bits-dev/spotlight-card";
 import { Activity } from "@/shared/types/activity";
 import { Button } from "./ui/button";
 
 import dayjs from "dayjs";
+import { useActivities } from "@/app/activities/_contexts/activities.context";
 
 type ActivityCardProps = {
   activity: Activity;
   onClickInfo: (a: Activity) => void;
+  isAdmin?: boolean;
 };
 
 export const ActivityCard: React.FC<ActivityCardProps> = ({
   activity,
   onClickInfo,
+  isAdmin = false,
 }) => {
+  const { editModal, selectActivity } = useActivities();
   return (
     <SpotlightCard className="h-full" spotlightColor="rgba(34, 197, 94, 0.2)">
       <div className="flex flex-col h-full">
@@ -44,15 +49,28 @@ export const ActivityCard: React.FC<ActivityCardProps> = ({
           </div>
         </div>
         <div className="mt-4 flex justify-between items-center">
-          {/* <span className="font-bold text-white">{activity.} / night</span> */}
           <Button>Book Campsite</Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => onClickInfo(activity)}
-          >
-            <InfoIcon className="w-4 h-4" />
-          </Button>
+          <div className="flex gap-2">
+            {isAdmin && (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => {
+                  selectActivity(activity.id);
+                  editModal.set(true);
+                }}
+              >
+                <Edit className="w-4 h-4" />
+              </Button>
+            )}
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => onClickInfo(activity)}
+            >
+              <InfoIcon className="w-4 h-4" />
+            </Button>
+          </div>
         </div>
       </div>
     </SpotlightCard>

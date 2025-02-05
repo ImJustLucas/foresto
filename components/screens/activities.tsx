@@ -9,6 +9,7 @@ import { ActivityModal } from "../modals/activity-modal";
 import { Button } from "../ui/button";
 import { AddActivityModal } from "../modals/add-activity.modal";
 import { useActivities } from "@/app/activities/_contexts/activities.context";
+import { EditActivityModal } from "../modals/edit-activity.modal";
 
 type ActivitiesScreenProps = {
   activities: Activity[];
@@ -19,7 +20,7 @@ export const ActivitiesScreen: React.FC<ActivitiesScreenProps> = ({
   activities: _activities,
   userRole,
 }) => {
-  const { activities, initActivity } = useActivities();
+  const { activities, initActivity, editModal } = useActivities();
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [addActivity, setAddActivity] = useState<boolean>(false);
   const [selectedActivity, setSelectedActivity] = useState<Activity | null>(
@@ -74,6 +75,7 @@ export const ActivitiesScreen: React.FC<ActivitiesScreenProps> = ({
             key={key}
             activity={activity}
             onClickInfo={handleInfoClick}
+            isAdmin={userRole === "admin"}
           />
         ))}
       </div>
@@ -82,6 +84,11 @@ export const ActivitiesScreen: React.FC<ActivitiesScreenProps> = ({
         open={Boolean(selectedActivity)}
         onOpenChange={() => setSelectedActivity(null)}
         activity={selectedActivity}
+      />
+
+      <EditActivityModal
+        open={editModal.get}
+        onOpenChange={() => editModal.set(false)}
       />
 
       <AddActivityModal

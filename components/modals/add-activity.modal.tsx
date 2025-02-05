@@ -152,6 +152,15 @@ export const AddActivityModal: React.FC<ModalProps> = ({
                 </PopoverContent>
               </Popover>
             </div>
+
+            <CustomFormItem
+              name="description"
+              type="text"
+              label="Description"
+              description="Enter the activity description"
+              value={newActivity.description}
+              onChange={(value) => handleChange("description", value)}
+            />
           </div>
         </form>
         <DialogFooter className="sm:justify-between">
