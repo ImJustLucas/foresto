@@ -20,3 +20,13 @@ export type ActivityCreateDto = {
   start_datetime: Date;
   duration: number;
 };
+
+export type ActivityUpdateDto = {
+  name: string;
+  location: string;
+  description: string;
+  type_id: string;
+  available_slots: number;
+  start_datetime: Date;
+  duration: number;
+};
