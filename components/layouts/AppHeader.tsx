@@ -27,7 +27,7 @@ export const AppHeader: React.FC = async () => {
         <div className="flex items-center aspect-square size-8 space-x-2 text-white bg-green-500 rounded-full p-2">
           <GalleryVerticalEnd className="size-4" />
         </div>
-        <TypographyH4>BANKO</TypographyH4>
+        <TypographyH4>FORESTO</TypographyH4>
       </Link>
 
       <div className="flex-2">
