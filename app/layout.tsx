@@ -28,6 +28,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-svh`}
+        style={{ background: "radial-gradient(circle, #ECFDF5, #FFFFFF)" }}
       >
         <AppHeader />
         {children}
