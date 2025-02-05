@@ -30,10 +30,15 @@ export const AppHeader: React.FC = async () => {
         <TypographyH4>BANKO</TypographyH4>
       </Link>
 
-      <div className=" flex-2">
+      <div className="flex-2">
         <Button asChild variant={"ghost"} className="font-semibold">
-          <Link href={ROUTES.ACTIVITIES}>Book a moment</Link>
+          <Link href={ROUTES.ACTIVITIES}>Book a moment 🌳</Link>
         </Button>
+        {Boolean(!isUserNotAuthenticated) && (
+          <Button asChild variant={"ghost"} className="font-semibold">
+            <Link href={ROUTES.ACTIVITIES}>My reservations 🪨</Link>
+          </Button>
+        )}
       </div>
 
       <div className="flex gap-1 justify-end flex-1">

@@ -22,7 +22,7 @@ export const HomepageScreen: React.FC = () => {
         <p className="text-center text-muted-foreground mt-4 w-1/2">
           Discover the tranquility and beauty of nature. Escape the hustle and
           bustle of everyday life and immerse yourself in the serene
-          surroundings of the forest.
+          surroundings of the forest. 🌳
         </p>
 
         <div className="flex items-center justify-center gap-4 w-full">
