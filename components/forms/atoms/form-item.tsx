@@ -9,12 +9,15 @@ type CustomFormItem<G> = {
   value: G;
 };
 
-export const CustomFormItem = <G,>({
+export const CustomFormItem = <
+  G extends string | number | readonly string[] | undefined
+>({
   name,
   type = "text",
   description,
   label,
   onChange,
+  value = "",
 }: CustomFormItem<G>) => {
   return (
     <div className="w-full">
@@ -29,6 +32,7 @@ export const CustomFormItem = <G,>({
         name="name"
         className="my-1"
         type={type}
+        value={value}
         onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
           onChange(event.target.value as unknown as G)
         }
