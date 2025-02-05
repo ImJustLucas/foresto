@@ -4,6 +4,11 @@ import { getProfileById } from "@/entities/users/user.api";
 import { createClient } from "@/lib/supabase/supabase-server-side";
 import { toast } from "sonner";
 import { ActivitiesProvider } from "./_contexts/activities.context";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "FORESTO - All the moment you can book",
+};
 
 export default async function ActivitiesPage() {
   const supabase = await createClient();

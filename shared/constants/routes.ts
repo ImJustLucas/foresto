@@ -9,6 +9,6 @@ export const ROUTES = {
   },
 
   ACCOUNT: "/profile",
-
   ACTIVITIES: "/activities",
+  BOOKING: "/booking",
 };

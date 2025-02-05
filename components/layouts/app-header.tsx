@@ -36,7 +36,7 @@ export const AppHeader: React.FC = async () => {
         </Button>
         {Boolean(!isUserNotAuthenticated) && (
           <Button asChild variant={"ghost"} className="font-semibold">
-            <Link href={ROUTES.ACTIVITIES}>My reservations 🪨</Link>
+            <Link href={ROUTES.BOOKING}>My reservations 🪨</Link>
           </Button>
         )}
       </div>
