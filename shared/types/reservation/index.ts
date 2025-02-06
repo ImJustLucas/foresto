@@ -3,7 +3,6 @@ import { User } from "../users";
 
 export interface ReservationSchema {
   id: string;
-  name: string;
   user_id: string;
   activity_id: string;
   reservation_date: Date;
@@ -12,9 +11,14 @@ export interface ReservationSchema {
 
 export interface Reservation {
   id: string;
-  name: string;
   user: User;
   activity: Activity;
   reservation_date: Date;
   status: boolean;
+}
+
+export interface createReservationDto {
+  user_id: string;
+  activity_id: string;
+  reservation_date: Date;
 }

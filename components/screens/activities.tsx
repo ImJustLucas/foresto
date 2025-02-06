@@ -11,17 +11,20 @@ import { AddActivityModal } from "../modals/add-activity.modal";
 import { useActivities } from "@/shared/contexts/activities.context";
 import { EditActivityModal } from "../modals/edit-activity.modal";
 import { ActivityType } from "@/shared/types/activity-type";
+import { User as AuthUser } from "@supabase/supabase-js";
 
 type ActivitiesScreenProps = {
   activities: Activity[];
   userRole: "visitor" | "user" | "admin";
   activityType: ActivityType[];
+  user: AuthUser | null;
 };
 
 export const ActivitiesScreen: React.FC<ActivitiesScreenProps> = ({
   activities: _activities,
   userRole,
   activityType: _activityType,
+  user,
 }) => {
   const { activities, editModal, activityType } = useActivities();
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -80,6 +83,7 @@ export const ActivitiesScreen: React.FC<ActivitiesScreenProps> = ({
             activity={activity}
             onClickInfo={handleInfoClick}
             isAdmin={userRole === "admin"}
+            user={user}
           />
         ))}
       </div>

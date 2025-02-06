@@ -65,8 +65,6 @@ export const AddActivityModal: React.FC<ModalProps> = ({
     onOpenChange();
   };
 
-  console.log(newActivity);
-
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[500px]">

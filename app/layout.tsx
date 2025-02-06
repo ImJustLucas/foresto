@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { AppHeader } from "@/components/layouts/app-header";
 import { Toaster } from "@/components/ui/sonner";
+import { ReservationProvider } from "@/shared/contexts/reservations.context";
+import { ActivitiesProvider } from "@/shared/contexts/activities.context";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,9 +33,13 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-svh`}
         style={{ background: "radial-gradient(circle, #ECFDF5, #FFFFFF)" }}
       >
-        <AppHeader />
-        {children}
-        <Toaster richColors />
+        <ReservationProvider>
+          <ActivitiesProvider>
+            <AppHeader />
+            {children}
+            <Toaster richColors />
+          </ActivitiesProvider>
+        </ReservationProvider>
       </body>
     </html>
   );

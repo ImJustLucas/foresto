@@ -3,7 +3,6 @@ import { ActivityApi } from "@/entities/activity/activity.api";
 import { getProfileById } from "@/entities/users/user.api";
 import { createClient } from "@/lib/supabase/supabase-server-side";
 import { toast } from "sonner";
-import { ActivitiesProvider } from "@/shared/contexts/activities.context";
 import { Metadata } from "next";
 import { ActivityTypeApi } from "@/entities/activity-type/activity-type.api";
 
@@ -36,13 +35,11 @@ export default async function ActivitiesPage() {
   }
 
   return (
-    <ActivitiesProvider>
-      <ActivitiesScreen
-        activities={responseActivity.data}
-        activityType={responseActivityType.data}
-        userRole={userRole}
-      />
-      ;
-    </ActivitiesProvider>
+    <ActivitiesScreen
+      activities={responseActivity.data}
+      activityType={responseActivityType.data}
+      userRole={userRole}
+      user={data.user}
+    />
   );
 }

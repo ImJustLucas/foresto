@@ -8,6 +8,7 @@ export async function POST(request: Request) {
   const { data, error } = await supabase.from("reservations").insert([body]);
 
   if (error) {
+    console.error(error);
     return NextResponse.json(
       { success: false, message: error.message },
       { status: 500 }
