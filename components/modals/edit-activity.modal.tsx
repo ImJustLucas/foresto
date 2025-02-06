@@ -35,13 +35,10 @@ export const EditActivityModal: React.FC<ModalProps> = ({
   useEffect(() => {
     if (open) {
       const selectedActivity = getSelectedActivity();
-      console.log("open", selectedActivity);
       if (selectedActivity) {
         setActivityData(selectedActivity);
       } else onOpenChange();
     } else {
-      console.log("close");
-
       setActivityData({} as Activity);
     }
   }, [open]);

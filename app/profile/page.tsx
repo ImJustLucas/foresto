@@ -19,8 +19,6 @@ export default async function ProfilePage() {
 
   if (profileError) return toast.error("Error while fetching profile");
 
-  console.log(data, profiles);
-
   return (
     <div className="flex w-100 items-center flex-col gap-4 justify-center">
       <UpdateUserForm userId={data.user.id} profile={profiles} />

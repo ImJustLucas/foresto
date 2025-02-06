@@ -20,11 +20,8 @@ export const loginAction = async (prevState: any, formData: FormData) => {
   }
   const { error } = await supabase.auth.signInWithPassword(safeParse.data);
   if (error) {
-    console.log("wsh", error);
     return { message: error, error: true };
   }
-
-  console.log("LOGGED IN");
 
   revalidatePath(ROUTES.ACCOUNT, "layout");
   redirect(ROUTES.ACCOUNT);

@@ -54,7 +54,6 @@ export const AddActivityModal: React.FC<ModalProps> = ({
     if (loading) return;
     setLoading(true);
 
-    console.log("newActivity", newActivity);
     const response = await ActivityApi.create(newActivity);
 
     if (!response.success) {

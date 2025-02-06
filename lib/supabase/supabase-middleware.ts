@@ -48,7 +48,6 @@ export async function updateSession(request: NextRequest) {
     // const url = request.nextUrl.clone();
     // url.pathname = "/login";
     // return NextResponse.redirect(url);
-    console.log("NO USER");
   }
 
   // IMPORTANT: You *must* return the supabaseResponse object as it is.
