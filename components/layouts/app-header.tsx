@@ -36,7 +36,7 @@ export const AppHeader: React.FC = async () => {
         </Button>
         {Boolean(!isUserNotAuthenticated) && (
           <Button asChild variant={"ghost"} className="font-semibold">
-            <Link href={ROUTES.BOOKING}>My reservations 🪨</Link>
+            <Link href={ROUTES.BOOKING}>My bookings 🪨</Link>
           </Button>
         )}
       </div>
@@ -61,11 +61,12 @@ export const AppHeader: React.FC = async () => {
             <DropdownMenuContent>
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>
+              <DropdownMenuItem asChild>
                 <Link href={ROUTES.ACCOUNT}>Profile</Link>
               </DropdownMenuItem>
-              <DropdownMenuItem>Mes bancs</DropdownMenuItem>
-              <DropdownMenuItem>Team</DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href={ROUTES.BOOKING}>My bookings</Link>
+              </DropdownMenuItem>
               <DropdownMenuItem onClick={logoutAction}>Logout</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

@@ -11,7 +11,7 @@ import { Activity } from "@/shared/types/activity";
 import { Button } from "./ui/button";
 
 import dayjs from "dayjs";
-import { useActivities } from "@/app/activities/_contexts/activities.context";
+import { useActivities } from "@/shared/contexts/activities.context";
 
 type ActivityCardProps = {
   activity: Activity;

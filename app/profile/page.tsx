@@ -2,6 +2,7 @@ import { DeleteUserForm } from "@/components/forms/delete-user.form";
 import { UpdateUserForm } from "@/components/forms/update-user.form";
 import { getProfileById } from "@/entities/users/user.api";
 import { createClient } from "@/lib/supabase/supabase-server-side";
+import { ROUTES } from "@/shared/constants/routes";
 import { redirect } from "next/navigation";
 import { toast } from "sonner";
 
@@ -10,7 +11,7 @@ export default async function ProfilePage() {
 
   const { data, error } = await supabase.auth.getUser();
   if (error || !data?.user) {
-    redirect("/login");
+    redirect(ROUTES.AUTH.LOGIN);
   }
 
   const { data: profiles, error: profileError } = await getProfileById(

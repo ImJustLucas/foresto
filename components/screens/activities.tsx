@@ -8,7 +8,7 @@ import { Activity } from "@/shared/types/activity";
 import { ActivityModal } from "../modals/activity-modal";
 import { Button } from "../ui/button";
 import { AddActivityModal } from "../modals/add-activity.modal";
-import { useActivities } from "@/app/activities/_contexts/activities.context";
+import { useActivities } from "@/shared/contexts/activities.context";
 import { EditActivityModal } from "../modals/edit-activity.modal";
 import { ActivityType } from "@/shared/types/activity-type";
 

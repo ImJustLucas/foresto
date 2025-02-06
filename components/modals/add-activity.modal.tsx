@@ -18,7 +18,7 @@ import { CalendarIcon, LoaderCircle } from "lucide-react";
 import { ActivityApi } from "@/entities/activity/activity.api";
 import { toast } from "sonner";
 import { ActivityCreateDto } from "@/shared/types/activity";
-import { useActivities } from "@/app/activities/_contexts/activities.context";
+import { useActivities } from "@/shared/contexts/activities.context";
 import {
   Select,
   SelectContent,

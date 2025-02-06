@@ -3,7 +3,7 @@ import { ActivityApi } from "@/entities/activity/activity.api";
 import { getProfileById } from "@/entities/users/user.api";
 import { createClient } from "@/lib/supabase/supabase-server-side";
 import { toast } from "sonner";
-import { ActivitiesProvider } from "./_contexts/activities.context";
+import { ActivitiesProvider } from "@/shared/contexts/activities.context";
 import { Metadata } from "next";
 import { ActivityTypeApi } from "@/entities/activity-type/activity-type.api";
 
