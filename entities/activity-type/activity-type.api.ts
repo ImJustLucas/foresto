@@ -1,5 +1,3 @@
-"use server";
-
 import { requester } from "@/lib/requester";
 import { ActivityType } from "@/shared/types/activity-type";
 

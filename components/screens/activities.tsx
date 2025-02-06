@@ -10,17 +10,20 @@ import { Button } from "../ui/button";
 import { AddActivityModal } from "../modals/add-activity.modal";
 import { useActivities } from "@/app/activities/_contexts/activities.context";
 import { EditActivityModal } from "../modals/edit-activity.modal";
+import { ActivityType } from "@/shared/types/activity-type";
 
 type ActivitiesScreenProps = {
   activities: Activity[];
   userRole: "visitor" | "user" | "admin";
+  activityType: ActivityType[];
 };
 
 export const ActivitiesScreen: React.FC<ActivitiesScreenProps> = ({
   activities: _activities,
   userRole,
+  activityType: _activityType,
 }) => {
-  const { activities, initActivity, editModal } = useActivities();
+  const { activities, editModal, activityType } = useActivities();
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [addActivity, setAddActivity] = useState<boolean>(false);
   const [selectedActivity, setSelectedActivity] = useState<Activity | null>(
@@ -28,14 +31,15 @@ export const ActivitiesScreen: React.FC<ActivitiesScreenProps> = ({
   );
 
   useEffect(() => {
-    initActivity(_activities);
+    activities.init(_activities);
+    activityType.init(_activityType);
   }, []);
 
   const handleInfoClick = (activity: Activity) => {
     setSelectedActivity(activity);
   };
 
-  const filteredReservations = activities.filter(
+  const filteredReservations = activities.get.filter(
     (activity) =>
       activity.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       activity.location.toLowerCase().includes(searchTerm.toLowerCase())
@@ -84,6 +88,7 @@ export const ActivitiesScreen: React.FC<ActivitiesScreenProps> = ({
         open={Boolean(selectedActivity)}
         onOpenChange={() => setSelectedActivity(null)}
         activity={selectedActivity}
+        isAdmin={userRole === "admin"}
       />
 
       <EditActivityModal

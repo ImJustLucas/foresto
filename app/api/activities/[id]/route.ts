@@ -58,11 +58,12 @@ export async function DELETE(
   const { error } = await supabase.from("activities").delete().eq("id", id);
 
   if (error) {
+    console.error(error);
     return NextResponse.json(
       { success: false, message: error.message },
       { status: 500 }
     );
   }
 
-  return NextResponse.json({ success: true }, { status: 204 });
+  return NextResponse.json({ success: true }, { status: 200 });
 }

@@ -19,29 +19,26 @@ import { ActivityApi } from "@/entities/activity/activity.api";
 import { toast } from "sonner";
 import { ActivityCreateDto } from "@/shared/types/activity";
 import { useActivities } from "@/app/activities/_contexts/activities.context";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
 
 type ModalProps = {
   open: boolean;
   onOpenChange: () => void;
 };
 
-const InitialState: ActivityCreateDto = {
-  name: "",
-  location: "",
-  available_slots: 0,
-  start_datetime: new Date(),
-  duration: 0,
-  description: "",
-  type_id: "1",
-};
-
 export const AddActivityModal: React.FC<ModalProps> = ({
   open,
   onOpenChange,
 }) => {
-  const [newActivity, setNewActivity] = useState(InitialState);
+  const [newActivity, setNewActivity] = useState({} as ActivityCreateDto);
   const [loading, setLoading] = useState<boolean>(false);
-  const { addActivity } = useActivities();
+  const { activities, activityType } = useActivities();
 
   const handleChange = (
     field: string,
@@ -62,11 +59,13 @@ export const AddActivityModal: React.FC<ModalProps> = ({
       return;
     }
     toast.success("Activity created successfully!");
-    addActivity(response.data);
+    activities.addOne(response.data);
     setLoading(false);
-    setNewActivity(InitialState);
+    setNewActivity({} as ActivityCreateDto);
     onOpenChange();
   };
+
+  console.log(newActivity);
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -150,6 +149,33 @@ export const AddActivityModal: React.FC<ModalProps> = ({
                   />
                 </PopoverContent>
               </Popover>
+            </div>
+
+            <div className="">
+              <label
+                htmlFor="name"
+                className="text-sm font-semibold leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              >
+                Activity Type
+              </label>
+              <Select
+                name="type_id"
+                onValueChange={(value) => handleChange("type_id", value)}
+              >
+                <SelectTrigger className="my-1">
+                  <SelectValue placeholder="Activity type" />
+                </SelectTrigger>
+                <SelectContent>
+                  {activityType.get.map((at, index) => (
+                    <SelectItem key={index} value={at.id.toString()}>
+                      {at.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <p className="text-[0.8rem] text-muted-foreground">
+                Select a activity type
+              </p>
             </div>
 
             <CustomFormItem

@@ -24,7 +24,7 @@ export const ActivityCard: React.FC<ActivityCardProps> = ({
   onClickInfo,
   isAdmin = false,
 }) => {
-  const { editModal, selectActivity } = useActivities();
+  const { editModal, activities } = useActivities();
   return (
     <SpotlightCard className="h-full" spotlightColor="rgba(34, 197, 94, 0.2)">
       <div className="flex flex-col h-full">
@@ -56,7 +56,7 @@ export const ActivityCard: React.FC<ActivityCardProps> = ({
                 variant="outline"
                 size="sm"
                 onClick={() => {
-                  selectActivity(activity.id);
+                  activities.selectOneById(activity.id);
                   editModal.set(true);
                 }}
               >

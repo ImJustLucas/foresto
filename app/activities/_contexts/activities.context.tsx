@@ -1,14 +1,24 @@
 "use client";
 
 import { Activity } from "@/shared/types/activity";
+import { ActivityType } from "@/shared/types/activity-type";
 import React, { createContext, useContext, useState, ReactNode } from "react";
 
 interface ActivitiesContextProps {
-  activities: Activity[];
-  addActivity: (activity: Activity) => void;
-  initActivity: (activities: Activity[]) => void;
-  selectActivity: (id: string) => void;
-  getSelectedActivity: () => Activity | null;
+  activityType: {
+    init: (at: ActivityType[]) => void;
+    get: ActivityType[];
+  };
+
+  activities: {
+    init: (activities: Activity[]) => void;
+    get: Activity[];
+    addOne: (activity: Activity) => void;
+    selectOneById: (id: string) => void;
+    getSelectedActivity: () => Activity | null;
+    delete: (id: string) => void;
+  };
+
   editModal: {
     get: boolean;
     set: (v: boolean) => void;
@@ -44,18 +54,32 @@ export const ActivitiesProvider: React.FC<{ children: ReactNode }> = ({
     );
   };
 
+  const deleteActivity = (id: string) =>
+    setActivities(activities.filter((activity) => activity.id !== id));
+
+  const [_activityTypes, setActivityTypes] = useState<ActivityType[]>([]);
+
+  const activityType = {
+    init: (at: ActivityType[]) => setActivityTypes(at),
+    get: _activityTypes,
+  };
+
   return (
     <ActivitiesContext.Provider
       value={{
-        activities,
-        addActivity,
-        initActivity,
-        selectActivity,
-        getSelectedActivity,
+        activities: {
+          init: initActivity,
+          get: activities,
+          addOne: addActivity,
+          selectOneById: selectActivity,
+          getSelectedActivity,
+          delete: deleteActivity,
+        },
         editModal: {
           get: _editModal,
           set: (b) => setEditModal(b),
         },
+        activityType,
       }}
     >
       {children}

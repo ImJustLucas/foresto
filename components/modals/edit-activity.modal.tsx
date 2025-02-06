@@ -18,6 +18,13 @@ import { ActivityApi } from "@/entities/activity/activity.api";
 import { toast } from "sonner";
 import { Activity } from "@/shared/types/activity";
 import { useActivities } from "@/app/activities/_contexts/activities.context";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
 
 type ModalProps = {
   open: boolean;
@@ -30,11 +37,11 @@ export const EditActivityModal: React.FC<ModalProps> = ({
 }) => {
   const [activityData, setActivityData] = useState<Activity>({} as Activity);
   const [loading, setLoading] = useState<boolean>(false);
-  const { getSelectedActivity, activities, initActivity } = useActivities();
+  const { activities, activityType } = useActivities();
 
   useEffect(() => {
     if (open) {
-      const selectedActivity = getSelectedActivity();
+      const selectedActivity = activities.getSelectedActivity();
       if (selectedActivity) {
         setActivityData(selectedActivity);
       } else onOpenChange();
@@ -64,10 +71,10 @@ export const EditActivityModal: React.FC<ModalProps> = ({
         type_id: activityData.activity_types.id,
       });
       toast.success("Activity updated successfully");
-      const updatedActivities = activities.map((activity) =>
+      const updatedActivities = activities.get.map((activity) =>
         activity.id === activityData.id ? activityData : activity
       );
-      initActivity(updatedActivities);
+      activities.init(updatedActivities);
       onOpenChange();
     } catch (err) {
       toast.error("Failed to update activity");
@@ -154,14 +161,43 @@ export const EditActivityModal: React.FC<ModalProps> = ({
           </Popover>
         </div>
 
-        <CustomFormItem
-          name="description"
-          type="text"
-          label="Description"
-          description="Enter the activity description"
-          value={activityData.description}
-          onChange={(value) => handleChange("description", value)}
-        />
+        <div className="flex items-center gap-4">
+          <div className="w-[280px]">
+            <label
+              htmlFor="name"
+              className="text-sm font-semibold leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            >
+              Activity Type
+            </label>
+            <Select
+              name="type_id"
+              onValueChange={(value) => handleChange("type_id", value)}
+            >
+              <SelectTrigger className="my-1">
+                <SelectValue placeholder="Activity type" />
+              </SelectTrigger>
+              <SelectContent>
+                {activityType.get.map((at, index) => (
+                  <SelectItem key={index} value={at.id.toString()}>
+                    {at.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <p className="text-[0.8rem] text-muted-foreground">
+              Select a activity type
+            </p>
+          </div>
+
+          <CustomFormItem
+            name="description"
+            type="text"
+            label="Description"
+            description="Enter the activity description"
+            value={activityData.description}
+            onChange={(value) => handleChange("description", value)}
+          />
+        </div>
         <DialogFooter>
           <Button onClick={handleSubmit} disabled={loading}>
             {loading ? <LoaderCircle className="animate-spin" /> : "Save"}

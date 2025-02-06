@@ -4,15 +4,48 @@ import {
   UsersIcon,
   MapIcon,
   List,
+  LoaderCircle,
 } from "lucide-react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "../ui/dialog";
 import { Activity } from "@/shared/types/activity";
+import { Button } from "../ui/button";
+import { useState } from "react";
+import { useActivities } from "@/app/activities/_contexts/activities.context";
+import { ActivityApi } from "@/entities/activity/activity.api";
+import { toast } from "sonner";
 
 export const ActivityModal: React.FC<{
   open: boolean;
   onOpenChange: () => void;
   activity: Activity | null;
-}> = ({ open, onOpenChange, activity }) => {
+  isAdmin: boolean;
+}> = ({ open, onOpenChange, activity, isAdmin = false }) => {
+  const [loading, setLoading] = useState(false);
+
+  const { activities } = useActivities();
+
+  const handleDelete = async () => {
+    if (activity) {
+      setLoading(true);
+
+      const response = await ActivityApi.delete(activity.id);
+      if (!response.success) {
+        return toast.error("Error while deleting activity");
+      }
+      activities.delete(activity.id);
+      toast.success("Activity successfully deleted");
+
+      setLoading(false);
+      onOpenChange();
+    }
+  };
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
@@ -47,6 +80,21 @@ export const ActivityModal: React.FC<{
             <div className="text-sm">{activity?.description}</div>
           </div>
         </DialogHeader>
+        {isAdmin && (
+          <DialogFooter>
+            <Button
+              variant={"destructive"}
+              onClick={handleDelete}
+              disabled={loading}
+            >
+              {loading ? (
+                <LoaderCircle className="animate-spin" />
+              ) : (
+                "Delete activity"
+              )}
+            </Button>
+          </DialogFooter>
+        )}
       </DialogContent>
     </Dialog>
   );
