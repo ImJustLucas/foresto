@@ -1,5 +1,4 @@
 import { Activity } from "../activity";
-import { User } from "../users";
 
 export interface ReservationSchema {
   id: string;
@@ -11,7 +10,7 @@ export interface ReservationSchema {
 
 export interface Reservation {
   id: string;
-  user: User;
+  user_id: string;
   activity: Activity;
   reservation_date: Date;
   status: boolean;

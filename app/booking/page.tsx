@@ -29,7 +29,7 @@ export default async function BookingPage() {
 
   console.log(responseReservations.data);
 
-  return <BookingScreen />;
+  return <BookingScreen reservations={responseReservations.data} />;
 }
 
 // 81a9cad1-eea2-44c8-a87a-58fea66d4131

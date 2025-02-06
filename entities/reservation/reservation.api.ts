@@ -10,7 +10,10 @@ export const ReservationApi = {
   getAll: async () => await requester().get<Reservation[]>(BASE_URL),
 
   getUserReservation: async (id: string) =>
-    await requester().get<Reservation>(`${BASE_URL}/${id}/me`),
+    await requester().get<Reservation[]>(`${BASE_URL}/${id}/me`),
+
+  cancel: async (id: string) =>
+    await requester().delete<Reservation[]>(`${BASE_URL}/${id}/me`),
 
   update: async (id: string, data: Partial<Reservation>) =>
     await requester().put<Reservation>(`${BASE_URL}/${id}`, { data }),
