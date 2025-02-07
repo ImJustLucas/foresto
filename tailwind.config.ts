@@ -60,6 +60,7 @@ export default {
         "star-movement-bottom":
           "star-movement-bottom linear infinite alternate",
         "star-movement-top": "star-movement-top linear infinite alternate",
+        "fly-across": "fly 10s infinite linear",
       },
 
       keyframes: {
@@ -70,6 +71,17 @@ export default {
         "star-movement-top": {
           "0%": { transform: "translate(0%, 0%)", opacity: "1" },
           "100%": { transform: "translate(100%, 0%)", opacity: "0" },
+        },
+        fly: {
+          "0%": {
+            transform: "translateX(0) translateY(0)",
+          },
+          "50%": {
+            transform: "translateX(50vw) translateY(-50px)",
+          },
+          "100%": {
+            transform: "translateX(100vw) translateY(0)",
+          },
         },
       },
     },

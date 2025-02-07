@@ -2,7 +2,6 @@
 
 import { createContext, useContext, useState, ReactNode } from "react";
 import { Reservation } from "../types/reservation";
-import { createSupabaseClientSide } from "@/lib/supabase/supabase-client-side";
 
 type Reservations = Reservation[];
 
@@ -12,6 +11,7 @@ interface ReservationContextProps {
     get: Reservations;
     addOne: (reservation: Reservation) => void;
     delete: (id: string) => void;
+    cancel: (id: string) => void;
   };
 }
 
@@ -22,7 +22,6 @@ const ReservationContext = createContext<ReservationContextProps | undefined>(
 export const ReservationProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const supabase = createSupabaseClientSide();
   const [_reservations, setReservations] = useState<Reservations>([]);
 
   const initReservations = (reservations: Reservations) => {
@@ -39,6 +38,14 @@ export const ReservationProvider: React.FC<{ children: ReactNode }> = ({
     );
   };
 
+  const cancelReservation = async (id: string) => {
+    setReservations(
+      _reservations.map((reservation) =>
+        reservation.id === id ? { ...reservation, status: false } : reservation
+      )
+    );
+  };
+
   return (
     <ReservationContext.Provider
       value={{
@@ -47,6 +54,7 @@ export const ReservationProvider: React.FC<{ children: ReactNode }> = ({
           get: _reservations,
           addOne: addReservation,
           delete: deleteReservation,
+          cancel: cancelReservation,
         },
       }}
     >

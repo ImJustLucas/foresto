@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/supabase-server-side";
+import { ActivityCreateDtoSchema } from "@/shared/types/activity";
 
 export async function GET(
   request: Request,
@@ -31,6 +32,16 @@ export async function PUT(
   const supabase = await createClient();
   const id = (await params).id;
   const updates = await request.json();
+
+  const response = ActivityCreateDtoSchema.safeParse(updates);
+
+  if (!response.success) {
+    console.error(response.error);
+    return NextResponse.json(
+      { success: false, message: "Bad request", errors: response.error },
+      { status: 500 }
+    );
+  }
 
   const { data, error } = await supabase
     .from("activities")

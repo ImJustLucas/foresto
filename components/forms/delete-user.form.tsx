@@ -1,6 +1,5 @@
 "use client";
 
-import { Label } from "../ui/label";
 import { Button } from "../ui/button";
 import { toast } from "sonner";
 import { requester } from "@/lib/requester";
@@ -26,8 +25,8 @@ export const DeleteUserForm: React.FC<{
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6 mt-6 w-100">
-      <Label>Delete your account</Label>
+    <form onSubmit={handleSubmit} className="space-y-6">
+      <p className="text-center w-100 font-semibold">DANGER ZONE</p>
       <Button type="submit" variant={"destructive"} className="w-full">
         DELETE ACCOUNT
       </Button>

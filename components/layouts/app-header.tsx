@@ -44,10 +44,8 @@ export const AppHeader: React.FC = () => {
 
   return (
     <header
-      className={`p-4 top-2 left-0 right-0 fixed flex w-full mx-auto max-w-[1280px] justify-between items-center transition-all duration-300 ${
-        hasScrolled
-          ? "bg-white/50 backdrop-blur-md shadow-md z-10 rounded-lg"
-          : ""
+      className={`p-4 top-2 left-0 right-0 fixed flex w-full mx-auto max-w-[1280px] justify-between items-center transition-all duration-300 z-10 ${
+        hasScrolled ? "bg-white/50 backdrop-blur-md shadow-md rounded-lg" : ""
       }`}
     >
       <Link href={ROUTES.HOMEPAGE} className="flex items-center gap-2 flex-1">

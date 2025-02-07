@@ -43,14 +43,17 @@ export const ReservationSummaryTable: React.FC = () => {
   const handleConfirmCancel = async () => {
     if (selectedReservation) {
       setIsCancelling(true);
-      const response = await ReservationApi.cancel(selectedReservation.user_id);
+      const response = await ReservationApi.cancel(
+        selectedReservation.user_id,
+        selectedReservation.id
+      );
 
       if (!response.success) {
         setIsCancelling(false);
         return toast.error("Error");
       }
 
-      reservations.delete(selectedReservation.id);
+      reservations.cancel(selectedReservation.id);
       setIsModalOpen(false);
     }
   };
@@ -70,36 +73,41 @@ export const ReservationSummaryTable: React.FC = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {reservations.get.map((reservation) => (
-            <TableRow key={reservation.id}>
-              <TableCell>{reservation.activity.name}</TableCell>
-              <TableCell>{reservation.activity.location}</TableCell>
-              <TableCell>
-                {format(
-                  new Date(reservation.activity.start_datetime),
-                  "dd MMMM yyyy",
-                  { locale: fr }
-                )}
-              </TableCell>
-              <TableCell>{reservation.activity.duration}</TableCell>
-              <TableCell>
-                <Badge variant={reservation.status ? "default" : "destructive"}>
-                  {reservation.status ? "Confirmed" : "Cancelled"}
-                </Badge>
-              </TableCell>
-              <TableCell>
-                {reservation.status && (
-                  <Button
-                    variant="destructive"
-                    size="sm"
-                    onClick={() => handleCancelClick(reservation)}
+          {reservations.get.map((reservation) => {
+            if (!reservation) return null;
+            return (
+              <TableRow key={reservation.id}>
+                <TableCell>{reservation.activity.name}</TableCell>
+                <TableCell>{reservation.activity.location}</TableCell>
+                <TableCell>
+                  {format(
+                    new Date(reservation.activity.start_datetime),
+                    "dd MMMM yyyy",
+                    { locale: fr }
+                  )}
+                </TableCell>
+                <TableCell>{reservation.activity.duration}</TableCell>
+                <TableCell>
+                  <Badge
+                    variant={reservation.status ? "default" : "destructive"}
                   >
-                    Cancel
-                  </Button>
-                )}
-              </TableCell>
-            </TableRow>
-          ))}
+                    {reservation.status ? "Confirmed" : "Cancelled"}
+                  </Badge>
+                </TableCell>
+                <TableCell>
+                  {reservation.status && (
+                    <Button
+                      variant="destructive"
+                      size="sm"
+                      onClick={() => handleCancelClick(reservation)}
+                    >
+                      Cancel
+                    </Button>
+                  )}
+                </TableCell>
+              </TableRow>
+            );
+          })}
         </TableBody>
       </Table>
 

@@ -58,30 +58,33 @@ export const EditActivityModal: React.FC<ModalProps> = ({
   };
 
   const handleSubmit = async () => {
+    if (loading) return;
     setLoading(true);
 
-    try {
-      await ActivityApi.updateOneById(activityData.id, {
-        name: activityData.name,
-        location: activityData.location,
-        description: activityData.description,
-        available_slots: activityData.available_slots,
-        start_datetime: activityData.start_datetime,
-        duration: activityData.duration,
-        type_id: activityData.activity_types.id,
-      });
-      toast.success("Activity updated successfully");
-      const updatedActivities = activities.get.map((activity) =>
-        activity.id === activityData.id ? activityData : activity
-      );
-      activities.init(updatedActivities);
-      onOpenChange();
-    } catch (err) {
-      toast.error("Failed to update activity");
-      console.error(err);
-    } finally {
+    const response = await ActivityApi.updateOneById(activityData.id, {
+      name: activityData.name,
+      location: activityData.location,
+      description: activityData.description,
+      available_slots: activityData.available_slots,
+      start_datetime: activityData.start_datetime,
+      duration: activityData.duration,
+      type_id: activityData.activity_types.id,
+    });
+
+    if (!response.success) {
+      toast.error(response.message ?? "Failed to update activity");
+      console.error(response.errors);
       setLoading(false);
+      return;
     }
+
+    toast.success("Activity updated successfully");
+    const updatedActivities = activities.get.map((activity) =>
+      activity.id === activityData.id ? activityData : activity
+    );
+    activities.init(updatedActivities);
+    onOpenChange();
+    setLoading(true);
   };
 
   return (

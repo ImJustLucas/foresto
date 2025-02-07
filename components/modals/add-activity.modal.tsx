@@ -55,7 +55,7 @@ export const AddActivityModal: React.FC<ModalProps> = ({
 
     if (!response.success) {
       setLoading(false);
-      toast.error("Error while create activity!");
+      toast.error(response.message || "Error while create activity!");
       return;
     }
     toast.success("Activity created successfully!");

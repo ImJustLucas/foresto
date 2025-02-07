@@ -40,7 +40,17 @@ export const ActivityCard: React.FC<ActivityCardProps> = ({
   const handleAddBooking = async () => {
     if (!user)
       return toast.error("You must create an account to book a moment");
+
+    if (activity.reservations.some((r) => r.user_id === user.id)) {
+      return toast.error("You have already booked this activity");
+    }
+
+    if (activity.reservations.length >= activity.available_slots) {
+      return toast.error("No slots available for this activity");
+    }
+
     setLoading(true);
+
     const response = await ReservationApi.create({
       user_id: user.id,
       activity_id: activity.id,
@@ -53,6 +63,8 @@ export const ActivityCard: React.FC<ActivityCardProps> = ({
     }
 
     reservations.addOne(response.data);
+    activity.reservations.push({ user_id: user.id });
+
     setLoading(false);
     toast.success("Booking successful");
   };
@@ -77,16 +89,26 @@ export const ActivityCard: React.FC<ActivityCardProps> = ({
           </div>
           <div className="flex items-center text-sm text-gray-700">
             <UsersIcon className="w-4 h-4 mr-1" />
-            {activity.available_slots} guests
+            {`${activity.available_slots - activity.reservations.length}/${
+              activity.available_slots
+            } slots available`}
           </div>
         </div>
         <div className="mt-4 flex justify-between items-center">
           <Button
             onClick={handleAddBooking}
-            disabled={Boolean(!user) || loading}
+            disabled={
+              Boolean(!user) ||
+              loading ||
+              Boolean(activity.reservations.some((r) => r.user_id === user?.id))
+            }
           >
             {loading ? (
               <LoaderCircle className="animate-spin" />
+            ) : Boolean(
+                activity.reservations.some((r) => r.user_id === user?.id)
+              ) ? (
+              "Already Booked"
             ) : (
               " Book Campsite"
             )}

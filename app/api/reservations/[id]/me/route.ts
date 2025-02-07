@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/supabase-server-side";
 import { NextResponse } from "next/server";
+import { type NextRequest } from "next/server";
 
 export async function GET(
   request: Request,
@@ -36,14 +37,17 @@ export async function GET(
   return NextResponse.json({ success: true, data });
 }
 
-export async function DELETE(
-  request: Request,
+export async function PUT(
+  request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   const supabase = await createClient();
   const id = (await params).id;
+  const searchParams = request.nextUrl.searchParams;
 
-  if (!id) {
+  const reservationId = searchParams.get("reservationId");
+
+  if (!id || !reservationId) {
     return NextResponse.json(
       { success: false, message: "Bad request, id's missing" },
       { status: 400 }
@@ -54,6 +58,7 @@ export async function DELETE(
     .from("reservations")
     .select("*")
     .eq("user_id", id)
+    .eq("id", reservationId)
     .single();
 
   if (fetchError) {
@@ -73,8 +78,9 @@ export async function DELETE(
 
   const { data, error } = await supabase
     .from("reservations")
-    .delete()
-    .eq("user_id", id);
+    .update({ status: false })
+    .eq("id", reservationId)
+    .single();
 
   if (error) {
     console.error(error);
