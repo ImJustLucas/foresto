@@ -7,7 +7,7 @@ import { Metadata } from "next";
 import { ActivityTypeApi } from "@/entities/activity-type/activity-type.api";
 
 export const metadata: Metadata = {
-  title: "FORESTO - All the moment you can book",
+  title: "All the moment you can book",
 };
 
 export default async function ActivitiesPage() {

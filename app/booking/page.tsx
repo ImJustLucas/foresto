@@ -5,6 +5,10 @@ import { createClient } from "@/lib/supabase/supabase-server-side";
 import { ROUTES } from "@/shared/constants/routes";
 import { redirect } from "next/navigation";
 
+export const metadata: Metadata = {
+  title: "My bookings",
+};
+
 export default async function BookingPage() {
   const supabase = await createClient();
 

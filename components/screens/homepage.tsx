@@ -10,7 +10,9 @@ export const HomepageScreen: React.FC = () => {
     <div className="">
       <div className="mx-auto relative max-w-[1300px] h-screen flex flex-col justify-center gap-6 items-center">
         <p className="uppercase bg-gradient-to-r from-green-800 to-green-300 font-bold text-8xl text-center inline-block text-transparent bg-clip-text">
-          book a moment in the forest
+          book a moment in
+          <br />
+          the forest
         </p>
         <p className="text-center text-muted-foreground mt-4 w-1/2  z-[3] relative">
           Discover the tranquility and beauty of nature. Escape the hustle and

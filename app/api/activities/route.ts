@@ -32,7 +32,8 @@ export async function POST(request: Request) {
 export async function GET() {
   const supabase = await createClient();
 
-  const { data, error } = await supabase.from("activities").select(`
+  const { data, error } = await supabase.from("activities").select(
+    `
     *,
     activity_types:type_id (
       id,
@@ -41,7 +42,8 @@ export async function GET() {
     reservations (
       user_id
     )
-  `);
+  `
+  );
 
   if (error) {
     return NextResponse.json(

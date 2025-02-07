@@ -39,7 +39,7 @@ export async function PUT(
     console.error(response.error);
     return NextResponse.json(
       { success: false, message: "Bad request", errors: response.error },
-      { status: 500 }
+      { status: 400 }
     );
   }
 

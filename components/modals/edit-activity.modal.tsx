@@ -73,7 +73,6 @@ export const EditActivityModal: React.FC<ModalProps> = ({
 
     if (!response.success) {
       toast.error(response.message ?? "Failed to update activity");
-      console.error(response.errors);
       setLoading(false);
       return;
     }

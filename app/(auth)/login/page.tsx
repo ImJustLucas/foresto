@@ -1,4 +1,9 @@
 import { LoginForm } from "@/components/forms/login.form";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "FORESTO - Login",
+};
 
 export default function LoginPage() {
   return (

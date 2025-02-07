@@ -46,13 +46,13 @@ export const ActivitySchema = z.object({
 });
 
 export const ActivityCreateDtoSchema = z.object({
-  name: z.string(),
+  name: z.string().min(2),
   location: z.string(),
   description: z.string(),
   type_id: z.number(),
   available_slots: z.number().int().nonnegative(),
-  start_datetime: z.date(),
-  duration: z.number().int().positive(),
+  start_datetime: z.string(),
+  duration: z.string(),
 });
 
 export const ActivityUpdateDtoSchema = z.object({

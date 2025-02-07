@@ -1,4 +1,9 @@
 import { RegisterForm } from "@/components/forms/register.form";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "FORESTO - Register",
+};
 
 export default function Page() {
   return (
