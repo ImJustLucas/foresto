@@ -3,6 +3,7 @@ import { ReservationApi } from "@/entities/reservation/reservation.api";
 import { getProfileById } from "@/entities/users/user.api";
 import { createClient } from "@/lib/supabase/supabase-server-side";
 import { ROUTES } from "@/shared/constants/routes";
+import { Metadata } from "next";
 import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
@@ -35,6 +36,3 @@ export default async function BookingPage() {
 
   return <BookingScreen reservations={responseReservations.data} />;
 }
-
-// 81a9cad1-eea2-44c8-a87a-58fea66d4131
-// 3
