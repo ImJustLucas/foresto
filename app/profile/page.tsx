@@ -6,6 +6,7 @@ import { ROUTES } from "@/shared/constants/routes";
 import { redirect } from "next/navigation";
 import { toast } from "sonner";
 import { Separator } from "@/components/ui/separator";
+import { Profile } from "@/shared/types/users";
 
 export default async function ProfilePage() {
   const supabase = await createClient();
@@ -23,7 +24,10 @@ export default async function ProfilePage() {
 
   return (
     <div className="flex w-1/2 items-center flex-col gap-4 justify-center mx-auto">
-      <UpdateUserForm userId={data.user.id} profile={profiles} />
+      <UpdateUserForm
+        userId={data.user.id}
+        profile={profiles as unknown as Profile}
+      />
       <Separator />
       <DeleteUserForm userId={data.user.id} />
     </div>
