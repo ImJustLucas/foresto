@@ -32,7 +32,5 @@ export default async function BookingPage() {
     return redirect(ROUTES.ERROR);
   }
 
-  console.log(responseReservations.data);
-
   return <BookingScreen reservations={responseReservations.data} />;
 }
